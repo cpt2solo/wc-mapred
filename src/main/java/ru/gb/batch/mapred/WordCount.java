@@ -112,6 +112,9 @@ public class WordCount extends Configured implements Tool {
         job.setNumReduceTasks(2);
         job.setPartitionerClass(AlphabetPartitioner.class);
 
+        // включить промежуточную компрессию на мапере
+        job.getConfiguration().set("mapreduce.map.output.compress", "true");
+
         FileInputFormat.addInputPath(job, new Path(getConf().get(IN_PATH_PARAM)));
         FileOutputFormat.setOutputPath(job, new Path(getConf().get(OUT_PATH_PARAM)));
 
